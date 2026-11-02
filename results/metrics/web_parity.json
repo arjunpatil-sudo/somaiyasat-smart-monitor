@@ -1,0 +1,7 @@
+{
+  "cnn_n": 40,
+  "cnn_max_abs_diff": 1.7443617605916728e-07,
+  "cnn_top1_agree": 1.0,
+  "dnn_max_abs_diff": 2.0281606463896928e-07,
+  "lstm_max_abs_diff": 7.965968379597399e-06
+}

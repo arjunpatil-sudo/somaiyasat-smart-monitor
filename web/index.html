@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SomaiyaSat Smart Monitor | Deep Learning Mini Project</title>
+<meta name="description" content="Deep learning for PocketQube satellite health monitoring and Earth image classification (KJS-SRS-01).">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">K J Somaiya College of Engineering · Dept. of IT · Deep Learning Mini Project · AI use case KJS-SRS-01</p>
+    <h1>SomaiyaSat Smart Monitor</h1>
+    <p class="lede">Deep learning for PocketQube satellite health monitoring and Earth image classification.
+      Every model on this page runs live in your browser, using the weights we trained.</p>
+    <div class="team">
+      <span><b>Yashveer Singh</b> · 16010423117</span>
+      <span><b>Arjun Patil</b> · 16010423121</span>
+      <span>LY B.Tech IT · Batch B2 · Sem VII</span>
+    </div>
+    <nav>
+      <a href="#health">Health monitor</a>
+      <a href="#replay">Orbit replay + LSTM</a>
+      <a href="#vision">Earth image classifier</a>
+      <a href="#experiments">Lab experiments</a>
+      <a href="#results">Results</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="overview" class="card">
+  <h2>System overview</h2>
+  <div class="arch">
+    <div class="node sat">SomaiyaSat<br><small>PocketQube</small></div>
+    <div class="arrow">→</div>
+    <div class="col">
+      <div class="node">Housekeeping telemetry<br><small>V, I, temps, solar, load, sun flag</small></div>
+      <div class="node">SSTV Earth images<br><small>64×64 RGB patches</small></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="col">
+      <div class="node m">FFNN / DNN<br><small>health: Normal · Warning · Critical</small></div>
+      <div class="node m">RNN / LSTM<br><small>15-min forecast of V and battery temp</small></div>
+      <div class="node m">CNN / MobileNetV2<br><small>10 land-cover classes</small></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="node out">Ground station dashboard<br><small>alerts · forecasts · image tags</small></div>
+  </div>
+</section>
+
+<section id="health" class="card">
+  <h2>1 · Live health monitor <span class="tag">Exp 2–3 · DNN</span></h2>
+  <p class="muted">Set a telemetry reading, or pick a scenario. The deep neural network from Exp 3 (128-64-32 with BatchNorm) classifies the satellite's state.</p>
+  <div class="grid2">
+    <div>
+      <div class="presets" id="presets"></div>
+      <div id="sliders"></div>
+    </div>
+    <div class="health-out">
+      <div id="healthBadge" class="badge">-</div>
+      <div id="healthBars"></div>
+      <p class="small muted">The class probabilities come from softmax. The inputs are standardised with the training-set mean and standard deviation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="replay" class="card">
+  <h2>2 · Orbit replay with LSTM forecast <span class="tag">Exp 7–8 · LSTM</span></h2>
+  <p class="muted">Telemetry from a test run the models never saw, which has a battery-ageing fault. At every minute the LSTM reads the past 60 minutes and forecasts the next 15 minutes of battery voltage and temperature. The DNN labels the current state.</p>
+  <div class="controls">
+    <button id="playBtn">▶ Play</button>
+    <input type="range" id="timeSlider" min="60" max="1185" value="60">
+    <span id="timeLabel" class="mono">t = 0 min</span>
+    <span id="replayHealth" class="pill">-</span>
+  </div>
+  <canvas id="chartV" height="190"></canvas>
+  <canvas id="chartT" height="190"></canvas>
+  <p class="small muted"><span class="key k-act"></span>actual &nbsp; <span class="key k-fc"></span>LSTM forecast (next 15 min) &nbsp; <span class="key k-ecl"></span>eclipse</p>
+</section>
+
+<section id="vision" class="card">
+  <h2>3 · Earth image classifier <span class="tag">Exp 4–5 · CNN</span></h2>
+  <p class="muted">Click a held-out EuroSAT test image, or upload your own satellite image. Our CNN (141k parameters, about 0.55 MB) classifies it in the browser and shows its first-layer feature maps.</p>
+  <div class="grid2">
+    <div>
+      <canvas id="gallery" width="640" height="192"></canvas>
+      <label class="upload">Upload image <input type="file" id="upload" accept="image/*"></label>
+    </div>
+    <div>
+      <div class="vision-top">
+        <canvas id="picked" width="64" height="64"></canvas>
+        <div id="visionOut"><p class="muted">Pick an image →</p></div>
+      </div>
+      <h4>Feature maps · layer b1c1 (first 16 channels)</h4>
+      <div id="fmaps"></div>
+    </div>
+  </div>
+</section>
+
+<section id="experiments" class="card">
+  <h2>Lab experiments mapped to the project</h2>
+  <div id="expCards" class="exp-grid"></div>
+</section>
+
+<section id="results" class="card">
+  <h2>Results summary</h2>
+  <div id="resultsTables"></div>
+  <div class="gallery-plots" id="plots"></div>
+</section>
+
+</main>
+<footer class="wrap small muted">
+  SomaiyaSat Smart Monitor · Deep Learning (ODD 2026-27) · Yashveer Singh &amp; Arjun Patil, KJSCE IT.
+  EuroSAT © Helber et al. (contains modified Copernicus Sentinel data). The telemetry is simulated with a physics-based model of a PocketQube power and thermal system.
+</footer>
+<script src="js/nn.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

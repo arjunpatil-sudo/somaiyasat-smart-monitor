@@ -1,0 +1,1063 @@
+{
+  "web_parity": {
+    "cnn_n": 40,
+    "cnn_max_abs_diff": 1.7443617605916728e-07,
+    "cnn_top1_agree": 1.0,
+    "dnn_max_abs_diff": 2.0281606463896928e-07,
+    "lstm_max_abs_diff": 7.965968379597399e-06
+  },
+  "exp4_feature_maps": {
+    "experiment": "Exp 4 - Feature map visualisation",
+    "layer_stats": [
+      {
+        "layer": "b1c1_relu",
+        "shape": [
+          64,
+          64,
+          32
+        ],
+        "mean_activation": 0.3886,
+        "fraction_zero": 0.4243
+      },
+      {
+        "layer": "b1c2_relu",
+        "shape": [
+          64,
+          64,
+          32
+        ],
+        "mean_activation": 0.3025,
+        "fraction_zero": 0.5338
+      },
+      {
+        "layer": "b2c2_relu",
+        "shape": [
+          32,
+          32,
+          64
+        ],
+        "mean_activation": 0.2601,
+        "fraction_zero": 0.6012
+      },
+      {
+        "layer": "b3c1_relu",
+        "shape": [
+          16,
+          16,
+          128
+        ],
+        "mean_activation": 0.4381,
+        "fraction_zero": 0.5735
+      }
+    ],
+    "gradcam_samples": [
+      {
+        "true": "AnnualCrop",
+        "pred": "AnnualCrop",
+        "prob": 0.372
+      },
+      {
+        "true": "Forest",
+        "pred": "Forest",
+        "prob": 0.983
+      },
+      {
+        "true": "HerbaceousVegetation",
+        "pred": "HerbaceousVegetation",
+        "prob": 0.999
+      },
+      {
+        "true": "Highway",
+        "pred": "Highway",
+        "prob": 0.979
+      },
+      {
+        "true": "Industrial",
+        "pred": "Industrial",
+        "prob": 1.0
+      },
+      {
+        "true": "Pasture",
+        "pred": "Pasture",
+        "prob": 1.0
+      },
+      {
+        "true": "PermanentCrop",
+        "pred": "PermanentCrop",
+        "prob": 0.991
+      },
+      {
+        "true": "Residential",
+        "pred": "Residential",
+        "prob": 0.999
+      },
+      {
+        "true": "River",
+        "pred": "River",
+        "prob": 0.998
+      },
+      {
+        "true": "SeaLake",
+        "pred": "SeaLake",
+        "prob": 0.999
+      }
+    ]
+  },
+  "exp3_dnn": {
+    "experiment": "Exp 3 - Deep neural network",
+    "architecture": "7 -> [Dense128-BN-ReLU-Drop0.1] -> [Dense64-BN-ReLU-Drop0.1] -> [Dense32-BN-ReLU-Drop0.1] -> Dense3 softmax",
+    "optimizer": "Adam lr 1e-3, batch 256, unweighted CE, early stopping (patience 8), ReduceLROnPlateau",
+    "regularisation_study": [
+      {
+        "dropout": 0.2,
+        "class_weight": true,
+        "batchnorm": true,
+        "test_accuracy": 0.9758,
+        "test_macro_f1": 0.9487
+      },
+      {
+        "dropout": 0.1,
+        "class_weight": true,
+        "batchnorm": true,
+        "test_accuracy": 0.9775,
+        "test_macro_f1": 0.9521
+      },
+      {
+        "dropout": 0.0,
+        "class_weight": true,
+        "batchnorm": true,
+        "test_accuracy": 0.9811,
+        "test_macro_f1": 0.9587
+      },
+      {
+        "dropout": 0.1,
+        "class_weight": true,
+        "batchnorm": false,
+        "test_accuracy": 0.9826,
+        "test_macro_f1": 0.9613
+      },
+      {
+        "dropout": 0.1,
+        "class_weight": false,
+        "batchnorm": true,
+        "test_accuracy": 0.9845,
+        "test_macro_f1": 0.9624
+      }
+    ],
+    "epochs_run": 46,
+    "params": 12131,
+    "train_time_s": 51.5,
+    "test_accuracy": 0.9845,
+    "test_macro_f1": 0.9624,
+    "confusion_matrix": [
+      [
+        16734,
+        33,
+        0
+      ],
+      [
+        114,
+        1991,
+        143
+      ],
+      [
+        0,
+        68,
+        3957
+      ]
+    ],
+    "depth_study": [
+      {
+        "hidden_layers": 1,
+        "params": 707,
+        "test_accuracy": 0.9685,
+        "test_macro_f1": 0.9376
+      },
+      {
+        "hidden_layers": 2,
+        "params": 4867,
+        "test_accuracy": 0.9768,
+        "test_macro_f1": 0.9512
+      },
+      {
+        "hidden_layers": 3,
+        "params": 9027,
+        "test_accuracy": 0.9793,
+        "test_macro_f1": 0.9552
+      },
+      {
+        "hidden_layers": 4,
+        "params": 13187,
+        "test_accuracy": 0.982,
+        "test_macro_f1": 0.9584
+      }
+    ],
+    "model_size_kb": 196.3
+  },
+  "exp8_lstm": {
+    "experiment": "Exp 8 - LSTM forecaster",
+    "model": "LSTM",
+    "lookback_min": 60,
+    "horizon_min": 15,
+    "targets": [
+      "battery_voltage",
+      "battery_temp"
+    ],
+    "params": 20382,
+    "epochs_run": 30,
+    "train_time_s": 126.9,
+    "model_size_kb": 264.7,
+    "windows": {
+      "train": 29952,
+      "val": 7488,
+      "test": 7488
+    },
+    "test": {
+      "battery_voltage": {
+        "mae": 0.019,
+        "rmse": 0.0252,
+        "mae_t+1": 0.0174,
+        "mae_t+15": 0.0211,
+        "mae_by_horizon": [
+          0.0174,
+          0.0172,
+          0.0175,
+          0.0178,
+          0.0181,
+          0.0183,
+          0.0189,
+          0.0189,
+          0.019,
+          0.0197,
+          0.0197,
+          0.0201,
+          0.0206,
+          0.0206,
+          0.0211
+        ]
+      },
+      "battery_temp": {
+        "mae": 0.7848,
+        "rmse": 1.006,
+        "mae_t+1": 0.7642,
+        "mae_t+15": 0.8143,
+        "mae_by_horizon": [
+          0.7642,
+          0.7616,
+          0.7492,
+          0.7744,
+          0.7766,
+          0.7637,
+          0.7931,
+          0.7915,
+          0.774,
+          0.8047,
+          0.7941,
+          0.7824,
+          0.8185,
+          0.8095,
+          0.8143
+        ]
+      }
+    },
+    "persistence_baseline": {
+      "battery_voltage": {
+        "mae": 0.031,
+        "rmse": 0.0405,
+        "mae_t+1": 0.022,
+        "mae_t+15": 0.0413,
+        "mae_by_horizon": [
+          0.022,
+          0.023,
+          0.0235,
+          0.0253,
+          0.0262,
+          0.0274,
+          0.0294,
+          0.0309,
+          0.0319,
+          0.0335,
+          0.0349,
+          0.0366,
+          0.0386,
+          0.0399,
+          0.0413
+        ]
+      },
+      "battery_temp": {
+        "mae": 4.5288,
+        "rmse": 6.2414,
+        "mae_t+1": 1.2116,
+        "mae_t+15": 8.0139,
+        "mae_by_horizon": [
+          1.2116,
+          1.5643,
+          1.9868,
+          2.5122,
+          3.0022,
+          3.471,
+          4.0219,
+          4.5016,
+          5.0058,
+          5.5372,
+          6.0236,
+          6.5229,
+          7.0391,
+          7.5179,
+          8.0139
+        ]
+      }
+    }
+  },
+  "exp2_ffnn": {
+    "experiment": "Exp 2 - Feed-forward neural network",
+    "architecture": "7 -> Dense(16, ReLU) -> Dense(3, softmax)",
+    "optimizer": "SGD + momentum 0.9, lr 0.05, batch 128, 40 epochs, class-weighted CE",
+    "params": 179,
+    "train_time_s": 34.6,
+    "test_accuracy": 0.9809,
+    "test_macro_f1": 0.957,
+    "confusion_matrix": [
+      [
+        16589,
+        178,
+        0
+      ],
+      [
+        34,
+        2106,
+        108
+      ],
+      [
+        0,
+        119,
+        3906
+      ]
+    ],
+    "model_size_kb": 20.4
+  },
+  "exp7_8_comparison": {
+    "rnn": {
+      "battery_voltage": {
+        "mae": 0.0216,
+        "rmse": 0.0286,
+        "mae_t+1": 0.0197,
+        "mae_t+15": 0.0241,
+        "mae_by_horizon": [
+          0.0197,
+          0.0192,
+          0.0196,
+          0.02,
+          0.0204,
+          0.0206,
+          0.0214,
+          0.0216,
+          0.0215,
+          0.0226,
+          0.0225,
+          0.0233,
+          0.0237,
+          0.0241,
+          0.0241
+        ]
+      },
+      "battery_temp": {
+        "mae": 0.8816,
+        "rmse": 1.2026,
+        "mae_t+1": 0.8128,
+        "mae_t+15": 0.9552,
+        "mae_by_horizon": [
+          0.8128,
+          0.813,
+          0.8097,
+          0.8501,
+          0.8523,
+          0.8415,
+          0.8745,
+          0.8818,
+          0.8791,
+          0.9147,
+          0.9208,
+          0.9009,
+          0.9516,
+          0.966,
+          0.9552
+        ]
+      }
+    },
+    "lstm": {
+      "battery_voltage": {
+        "mae": 0.019,
+        "rmse": 0.0252,
+        "mae_t+1": 0.0174,
+        "mae_t+15": 0.0211,
+        "mae_by_horizon": [
+          0.0174,
+          0.0172,
+          0.0175,
+          0.0178,
+          0.0181,
+          0.0183,
+          0.0189,
+          0.0189,
+          0.019,
+          0.0197,
+          0.0197,
+          0.0201,
+          0.0206,
+          0.0206,
+          0.0211
+        ]
+      },
+      "battery_temp": {
+        "mae": 0.7848,
+        "rmse": 1.006,
+        "mae_t+1": 0.7642,
+        "mae_t+15": 0.8143,
+        "mae_by_horizon": [
+          0.7642,
+          0.7616,
+          0.7492,
+          0.7744,
+          0.7766,
+          0.7637,
+          0.7931,
+          0.7915,
+          0.774,
+          0.8047,
+          0.7941,
+          0.7824,
+          0.8185,
+          0.8095,
+          0.8143
+        ]
+      }
+    },
+    "persistence": {
+      "battery_voltage": {
+        "mae": 0.031,
+        "rmse": 0.0405,
+        "mae_t+1": 0.022,
+        "mae_t+15": 0.0413,
+        "mae_by_horizon": [
+          0.022,
+          0.023,
+          0.0235,
+          0.0253,
+          0.0262,
+          0.0274,
+          0.0294,
+          0.0309,
+          0.0319,
+          0.0335,
+          0.0349,
+          0.0366,
+          0.0386,
+          0.0399,
+          0.0413
+        ]
+      },
+      "battery_temp": {
+        "mae": 4.5288,
+        "rmse": 6.2414,
+        "mae_t+1": 1.2116,
+        "mae_t+15": 8.0139,
+        "mae_by_horizon": [
+          1.2116,
+          1.5643,
+          1.9868,
+          2.5122,
+          3.0022,
+          3.471,
+          4.0219,
+          4.5016,
+          5.0058,
+          5.5372,
+          6.0236,
+          6.5229,
+          7.0391,
+          7.5179,
+          8.0139
+        ]
+      }
+    },
+    "params": {
+      "rnn": 6558,
+      "lstm": 20382
+    }
+  },
+  "exp1_backprop": {
+    "experiment": "Exp 1 - Backpropagation from scratch (NumPy)",
+    "architecture": "7-16-3 MLP, tanh hidden, softmax output",
+    "optimizer": "mini-batch SGD + momentum (lr=0.01, m=0.9, batch=128)",
+    "epochs": 40,
+    "gradient_check_max_rel_error": 1.1156529044339346e-08,
+    "gradient_check_mean_rel_error": 5.26547118415934e-10,
+    "params": 179,
+    "test_accuracy": 0.9759,
+    "test_macro_f1": 0.9497,
+    "train_time_s": 2.3,
+    "confusion_matrix": [
+      [
+        16441,
+        326,
+        0
+      ],
+      [
+        29,
+        2130,
+        89
+      ],
+      [
+        1,
+        111,
+        3913
+      ]
+    ]
+  },
+  "exp6_transfer": {
+    "experiment": "Exp 6 - Transfer learning (MobileNetV2, ImageNet)",
+    "runs": [
+      {
+        "alpha": 1.0,
+        "input_size": 128,
+        "backbone_params": 2257984,
+        "total_params": 2270794,
+        "backbone_layers": 154,
+        "fine_tune_from_layer": 90,
+        "trainable_params_finetune": 1972618,
+        "model_size_kb": 24882.1,
+        "cpu_latency_ms_per_image": 7.75,
+        "feature_extraction": {
+          "test_accuracy": 0.9319,
+          "test_macro_f1": 0.9305,
+          "time_s": 66.4,
+          "epochs": 21
+        },
+        "fine_tuned": {
+          "test_accuracy": 0.9758,
+          "test_macro_f1": 0.9749,
+          "time_s": 1060.3,
+          "epochs": 12,
+          "confusion_matrix": [
+            [
+              429,
+              0,
+              0,
+              0,
+              0,
+              7,
+              12,
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              446,
+              2,
+              1,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              5,
+              432,
+              1,
+              0,
+              6,
+              5,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              362,
+              1,
+              1,
+              2,
+              0,
+              7,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              2,
+              372,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              7,
+              0,
+              3,
+              0,
+              0,
+              289,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              1,
+              6,
+              1,
+              1,
+              0,
+              363,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              3,
+              0,
+              0,
+              447,
+              0,
+              0
+            ],
+            [
+              4,
+              1,
+              0,
+              6,
+              0,
+              1,
+              0,
+              0,
+              363,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              449
+            ]
+          ]
+        }
+      },
+      {
+        "alpha": 0.35,
+        "input_size": 128,
+        "backbone_params": 410208,
+        "total_params": 423018,
+        "backbone_layers": 154,
+        "fine_tune_from_layer": 90,
+        "trainable_params_finetune": 352970,
+        "model_size_kb": 5010.7,
+        "cpu_latency_ms_per_image": 5.64,
+        "feature_extraction": {
+          "test_accuracy": 0.9212,
+          "test_macro_f1": 0.9178,
+          "time_s": 39.7,
+          "epochs": 30
+        },
+        "fine_tuned": {
+          "test_accuracy": 0.9553,
+          "test_macro_f1": 0.9537,
+          "time_s": 431.8,
+          "epochs": 12,
+          "confusion_matrix": [
+            [
+              431,
+              1,
+              1,
+              0,
+              0,
+              6,
+              7,
+              0,
+              1,
+              3
+            ],
+            [
+              0,
+              447,
+              1,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              17,
+              398,
+              2,
+              1,
+              8,
+              17,
+              2,
+              3,
+              0
+            ],
+            [
+              2,
+              0,
+              2,
+              343,
+              7,
+              2,
+              2,
+              0,
+              17,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              2,
+              372,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              6,
+              3,
+              0,
+              0,
+              0,
+              286,
+              1,
+              0,
+              3,
+              1
+            ],
+            [
+              12,
+              0,
+              9,
+              4,
+              0,
+              1,
+              347,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              3,
+              0,
+              0,
+              447,
+              0,
+              0
+            ],
+            [
+              7,
+              2,
+              0,
+              11,
+              0,
+              5,
+              0,
+              0,
+              350,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              448
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "exp5_cnn": {
+    "experiment": "Exp 5 - CNN from scratch (EuroSAT RGB)",
+    "architecture": "2x[Conv32-BN-ReLU] Pool, 2x[Conv64-BN-ReLU] Pool, [Conv128-BN-ReLU] Pool, GAP, Dropout0.3, Dense10",
+    "optimizer": "Adam lr 1e-3, batch 64, ReduceLROnPlateau, early stopping; flip + rot90 augmentation",
+    "split": "stratified 70/15/15: 18900 train / 4050 val / 4050 test",
+    "epochs_run": 22,
+    "params": 141674,
+    "train_time_s": 2104.8,
+    "cpu_latency_ms_per_image": 2.56,
+    "model_size_kb": 1750.1,
+    "test_accuracy": 0.9654,
+    "test_macro_f1": 0.9646,
+    "confusion_matrix": [
+      [
+        429,
+        1,
+        1,
+        3,
+        0,
+        5,
+        8,
+        0,
+        2,
+        1
+      ],
+      [
+        0,
+        448,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        432,
+        0,
+        2,
+        2,
+        5,
+        2,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        1,
+        357,
+        7,
+        1,
+        1,
+        0,
+        5,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        371,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        4,
+        3,
+        3,
+        0,
+        0,
+        290,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        11,
+        1,
+        17,
+        0,
+        3,
+        1,
+        339,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        3,
+        0,
+        0,
+        445,
+        1,
+        0
+      ],
+      [
+        11,
+        2,
+        3,
+        3,
+        0,
+        2,
+        0,
+        0,
+        354,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        445
+      ]
+    ]
+  },
+  "exp7_rnn": {
+    "experiment": "Exp 7 - Recurrent Neural Network forecaster",
+    "model": "RNN",
+    "lookback_min": 60,
+    "horizon_min": 15,
+    "targets": [
+      "battery_voltage",
+      "battery_temp"
+    ],
+    "params": 6558,
+    "epochs_run": 30,
+    "train_time_s": 54.9,
+    "model_size_kb": 102.6,
+    "windows": {
+      "train": 29952,
+      "val": 7488,
+      "test": 7488
+    },
+    "test": {
+      "battery_voltage": {
+        "mae": 0.0216,
+        "rmse": 0.0286,
+        "mae_t+1": 0.0197,
+        "mae_t+15": 0.0241,
+        "mae_by_horizon": [
+          0.0197,
+          0.0192,
+          0.0196,
+          0.02,
+          0.0204,
+          0.0206,
+          0.0214,
+          0.0216,
+          0.0215,
+          0.0226,
+          0.0225,
+          0.0233,
+          0.0237,
+          0.0241,
+          0.0241
+        ]
+      },
+      "battery_temp": {
+        "mae": 0.8816,
+        "rmse": 1.2026,
+        "mae_t+1": 0.8128,
+        "mae_t+15": 0.9552,
+        "mae_by_horizon": [
+          0.8128,
+          0.813,
+          0.8097,
+          0.8501,
+          0.8523,
+          0.8415,
+          0.8745,
+          0.8818,
+          0.8791,
+          0.9147,
+          0.9208,
+          0.9009,
+          0.9516,
+          0.966,
+          0.9552
+        ]
+      }
+    },
+    "persistence_baseline": {
+      "battery_voltage": {
+        "mae": 0.031,
+        "rmse": 0.0405,
+        "mae_t+1": 0.022,
+        "mae_t+15": 0.0413,
+        "mae_by_horizon": [
+          0.022,
+          0.023,
+          0.0235,
+          0.0253,
+          0.0262,
+          0.0274,
+          0.0294,
+          0.0309,
+          0.0319,
+          0.0335,
+          0.0349,
+          0.0366,
+          0.0386,
+          0.0399,
+          0.0413
+        ]
+      },
+      "battery_temp": {
+        "mae": 4.5288,
+        "rmse": 6.2414,
+        "mae_t+1": 1.2116,
+        "mae_t+15": 8.0139,
+        "mae_by_horizon": [
+          1.2116,
+          1.5643,
+          1.9868,
+          2.5122,
+          3.0022,
+          3.471,
+          4.0219,
+          4.5016,
+          5.0058,
+          5.5372,
+          6.0236,
+          6.5229,
+          7.0391,
+          7.5179,
+          8.0139
+        ]
+      }
+    }
+  }
+}

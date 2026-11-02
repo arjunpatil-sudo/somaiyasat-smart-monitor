@@ -1,0 +1,95 @@
+{
+  "classes": [
+    "AnnualCrop",
+    "Forest",
+    "HerbaceousVegetation",
+    "Highway",
+    "Industrial",
+    "Pasture",
+    "PermanentCrop",
+    "Residential",
+    "River",
+    "SeaLake"
+  ],
+  "input": [
+    64,
+    64,
+    3
+  ],
+  "rgb_mean": [
+    87.69,
+    96.89,
+    103.93
+  ],
+  "rgb_std": [
+    51.62,
+    34.85,
+    29.43
+  ],
+  "layers": [
+    {
+      "type": "conv",
+      "name": "b1c1",
+      "cout": 32,
+      "w_offset": 0,
+      "w_size": 864,
+      "b_offset": 864,
+      "b_size": 32
+    },
+    {
+      "type": "conv",
+      "name": "b1c2",
+      "cout": 32,
+      "w_offset": 896,
+      "w_size": 9216,
+      "b_offset": 10112,
+      "b_size": 32
+    },
+    {
+      "type": "pool"
+    },
+    {
+      "type": "conv",
+      "name": "b2c1",
+      "cout": 64,
+      "w_offset": 10144,
+      "w_size": 18432,
+      "b_offset": 28576,
+      "b_size": 64
+    },
+    {
+      "type": "conv",
+      "name": "b2c2",
+      "cout": 64,
+      "w_offset": 28640,
+      "w_size": 36864,
+      "b_offset": 65504,
+      "b_size": 64
+    },
+    {
+      "type": "pool"
+    },
+    {
+      "type": "conv",
+      "name": "b3c1",
+      "cout": 128,
+      "w_offset": 65568,
+      "w_size": 73728,
+      "b_offset": 139296,
+      "b_size": 128
+    },
+    {
+      "type": "pool"
+    },
+    {
+      "type": "gap"
+    },
+    {
+      "type": "dense",
+      "w_offset": 139424,
+      "w_size": 1280,
+      "b_offset": 140704,
+      "b_size": 10
+    }
+  ]
+}

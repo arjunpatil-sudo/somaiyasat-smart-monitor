@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.vercel
+# large / downloadable data
+data/eurosat_raw/
+data/EuroSAT_RGB.zip
+data/eurosat_rgb_64.npz
+data/pretrained/*.h5

@@ -1,0 +1,97 @@
+{
+  "experiment": "Exp 4 - Feature map visualisation",
+  "layer_stats": [
+    {
+      "layer": "b1c1_relu",
+      "shape": [
+        64,
+        64,
+        32
+      ],
+      "mean_activation": 0.3886,
+      "fraction_zero": 0.4243
+    },
+    {
+      "layer": "b1c2_relu",
+      "shape": [
+        64,
+        64,
+        32
+      ],
+      "mean_activation": 0.3025,
+      "fraction_zero": 0.5338
+    },
+    {
+      "layer": "b2c2_relu",
+      "shape": [
+        32,
+        32,
+        64
+      ],
+      "mean_activation": 0.2601,
+      "fraction_zero": 0.6012
+    },
+    {
+      "layer": "b3c1_relu",
+      "shape": [
+        16,
+        16,
+        128
+      ],
+      "mean_activation": 0.4381,
+      "fraction_zero": 0.5735
+    }
+  ],
+  "gradcam_samples": [
+    {
+      "true": "AnnualCrop",
+      "pred": "AnnualCrop",
+      "prob": 0.372
+    },
+    {
+      "true": "Forest",
+      "pred": "Forest",
+      "prob": 0.983
+    },
+    {
+      "true": "HerbaceousVegetation",
+      "pred": "HerbaceousVegetation",
+      "prob": 0.999
+    },
+    {
+      "true": "Highway",
+      "pred": "Highway",
+      "prob": 0.979
+    },
+    {
+      "true": "Industrial",
+      "pred": "Industrial",
+      "prob": 1.0
+    },
+    {
+      "true": "Pasture",
+      "pred": "Pasture",
+      "prob": 1.0
+    },
+    {
+      "true": "PermanentCrop",
+      "pred": "PermanentCrop",
+      "prob": 0.991
+    },
+    {
+      "true": "Residential",
+      "pred": "Residential",
+      "prob": 0.999
+    },
+    {
+      "true": "River",
+      "pred": "River",
+      "prob": 0.998
+    },
+    {
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "prob": 0.999
+    }
+  ]
+}

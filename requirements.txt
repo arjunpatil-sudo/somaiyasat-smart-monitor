@@ -1,0 +1,7 @@
+tensorflow>=2.16      # tested with 2.21 (Keras 3.15)
+numpy
+pandas
+scikit-learn
+matplotlib
+pillow
+python-docx           # only for regenerating the report

@@ -1,0 +1,12 @@
+flowchart LR
+  SAT["SomaiyaSat PocketQube<br/>(KJS-SRS-01)"] --> TM["Housekeeping telemetry<br/>V, I, temps, solar, load, sun flag"]
+  SAT --> IMG["Earth images (SSTV)<br/>64x64 RGB"]
+  TM --> PRE1["Standardisation<br/>run-wise split"]
+  IMG --> PRE2["Per-channel standardisation<br/>flip / rot90 augmentation"]
+  PRE1 --> CLS["Health classifier<br/>Exp 1 NumPy MLP / Exp 2 FFNN / Exp 3 DNN"]
+  PRE1 --> FC["Forecaster (60 min in, 15 min out)<br/>Exp 7 SimpleRNN / Exp 8 LSTM"]
+  PRE2 --> CNN["Land-cover classifier<br/>Exp 5 CNN / Exp 6 MobileNetV2"]
+  CNN --> VIS["Exp 4 feature maps<br/>and Grad-CAM"]
+  CLS --> GS["Ground-station dashboard (Vercel)<br/>alerts, forecasts, image tags"]
+  FC --> GS
+  CNN --> GS
